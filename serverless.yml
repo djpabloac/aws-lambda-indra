@@ -1,0 +1,73 @@
+service: aws-lambda-indra
+frameworkVersion: "3"
+
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  environment:
+    TOKEN_BEARER: ${env:TOKEN_BEARER}
+    MYSQL_HOST: ${env:MYSQL_HOST}
+    MYSQL_PORT: ${env:MYSQL_PORT}
+    MYSQL_USERNAME: ${env:MYSQL_USERNAME}
+    MYSQL_PASSWORD: ${env:MYSQL_PASSWORD}
+    MYSQL_DATABASE: ${env:MYSQL_DATABASE}
+    SWAPI_API: ${env:SWAPI_API}
+
+functions:
+  authGet:
+    handler: src/middleware/auth-get.handler
+  authPost:
+    handler: src/middleware/auth-post.handler
+  finderPeople:
+    handler: src/functions/people/finder-people.handler
+    events:
+      - http:
+          method: GET
+          path: /people/{id}
+          authorizer:
+            name: authGet
+  updatePeople:
+    handler: src/functions/people/update-basic-information-people.handler
+    events:
+      - http:
+          method: POST
+          path: /people/{id}
+          authorizer:
+            name: authGet
+  finderPlanet:
+    handler: src/functions/planet/finder-planet.handler
+    events:
+      - http:
+          method: GET
+          path: /planet/{id}
+          authorizer:
+            name: authPost
+  updatePlanet:
+    handler: src/functions/planet/update-basic-information-planet.handler
+    events:
+      - http:
+          method: POST
+          path: /planet/{id}
+          authorizer:
+            name: authGet
+
+package:
+  exclude:
+    - node_modules/**
+    - .gitignore
+    - __test__/**
+    - package.json
+    - package-lock.json
+
+plugins:
+  - serverless-esbuild
+  - serverless-offline
+
+custom:
+  serverless-offline:
+    httpPort: 9001
+  esbuild:
+    bundle: true
+    minify: true
