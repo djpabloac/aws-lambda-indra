@@ -35,7 +35,7 @@ functions:
           method: POST
           path: /people/{id}
           authorizer:
-            name: authGet
+            name: authPost
   finderPlanet:
     handler: src/functions/planet/finder-planet.handler
     events:
@@ -43,7 +43,7 @@ functions:
           method: GET
           path: /planet/{id}
           authorizer:
-            name: authPost
+            name: authGet
   updatePlanet:
     handler: src/functions/planet/update-basic-information-planet.handler
     events:
@@ -51,7 +51,7 @@ functions:
           method: POST
           path: /planet/{id}
           authorizer:
-            name: authGet
+            name: authPost
 
 package:
   exclude:
