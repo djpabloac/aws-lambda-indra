@@ -16,10 +16,8 @@ provider:
     SWAPI_API: ${env:SWAPI_API}
 
 functions:
-  authGet:
-    handler: src/middleware/auth-get.handler
-  authPost:
-    handler: src/middleware/auth-post.handler
+  auth:
+    handler: src/middleware/auth.handler
   finderPeople:
     handler: src/functions/people/finder-people.handler
     events:
@@ -27,7 +25,10 @@ functions:
           method: GET
           path: /people/{id}
           authorizer:
-            name: authGet
+            name: auth
+            resultTtlInSeconds: 0
+            identitySource: method.request.header.Authorization
+            type: token
   updatePeople:
     handler: src/functions/people/update-basic-information-people.handler
     events:
@@ -35,7 +36,10 @@ functions:
           method: POST
           path: /people/{id}
           authorizer:
-            name: authPost
+            name: auth
+            resultTtlInSeconds: 0
+            identitySource: method.request.header.Authorization
+            type: token
   finderPlanet:
     handler: src/functions/planet/finder-planet.handler
     events:
@@ -43,7 +47,10 @@ functions:
           method: GET
           path: /planet/{id}
           authorizer:
-            name: authGet
+            name: auth
+            resultTtlInSeconds: 0
+            identitySource: method.request.header.Authorization
+            type: token
   updatePlanet:
     handler: src/functions/planet/update-basic-information-planet.handler
     events:
@@ -51,7 +58,10 @@ functions:
           method: POST
           path: /planet/{id}
           authorizer:
-            name: authPost
+            name: auth
+            resultTtlInSeconds: 0
+            identitySource: method.request.header.Authorization
+            type: token
 
 package:
   exclude:

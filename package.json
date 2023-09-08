@@ -2,7 +2,8 @@
   "name": "aws-lambda-indra",
   "version": "1.0.0",
   "scripts": {
-    "deploy": "serverless deploy",
+    "deploy:prod": "serverless deploy --stage prod",
+    "deploy:dev": "serverless deploy",
     "dev": "serverless offline",
     "test": "jest --detectOpenHandles",
     "lint": "eslint ."
