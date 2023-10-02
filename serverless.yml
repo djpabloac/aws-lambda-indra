@@ -1,4 +1,4 @@
-service: aws-lambda-indra
+service: AWS-LAMBDA-INDRA
 frameworkVersion: "3"
 
 useDotenv: true
@@ -64,12 +64,16 @@ functions:
             type: token
 
 package:
+  individually: true
   exclude:
     - node_modules/**
-    - .gitignore
     - __test__/**
+    - .gitignore
     - package.json
     - package-lock.json
+    - .eslintrc.cjs
+    - jest.config.js
+    - tsconfig.json
 
 plugins:
   - serverless-esbuild

@@ -5,7 +5,7 @@
     "deploy:prod": "serverless deploy --stage prod",
     "deploy:dev": "serverless deploy",
     "dev": "serverless offline",
-    "test": "jest --detectOpenHandles",
+    "test": "jest --detectOpenHandles --verbose=false",
     "lint": "eslint ."
   },
   "keywords": [],
